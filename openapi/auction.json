@@ -1,0 +1,3463 @@
+{
+  "components": {
+    "schemas": {
+      "ApiErrorBody": {
+        "description": "에러 본문",
+        "properties": {
+          "code": {
+            "description": "기계 판독용 에러 코드",
+            "title": "Code",
+            "type": "string"
+          },
+          "message": {
+            "description": "사람이 읽는 설명",
+            "title": "Message",
+            "type": "string"
+          },
+          "request_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "응답 헤더 X-Request-ID 와 동일. 문의 시 이 값을 알려주면 된다",
+            "title": "Request Id"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "ApiErrorBody",
+        "type": "object"
+      },
+      "ApiErrorResponse": {
+        "description": "공통 에러 응답 봉투",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ApiErrorBody"
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "title": "ApiErrorResponse",
+        "type": "object"
+      },
+      "AuctionAnalysisResponse": {
+        "description": "경매 투자 분석",
+        "properties": {
+          "factors": {
+            "additionalProperties": true,
+            "description": "분석 요소",
+            "title": "Factors",
+            "type": "object"
+          },
+          "investment_grade": {
+            "description": "투자 등급",
+            "title": "Investment Grade",
+            "type": "string"
+          },
+          "investment_score": {
+            "description": "투자 점수 (0-100)",
+            "title": "Investment Score",
+            "type": "integer"
+          },
+          "recommendation": {
+            "description": "추천 의견",
+            "title": "Recommendation",
+            "type": "string"
+          },
+          "risk_level": {
+            "description": "위험 수준",
+            "title": "Risk Level",
+            "type": "string"
+          }
+        },
+        "required": [
+          "investment_score",
+          "investment_grade",
+          "risk_level",
+          "recommendation",
+          "factors"
+        ],
+        "title": "AuctionAnalysisResponse",
+        "type": "object"
+      },
+      "AuctionChangeEntry": {
+        "description": "변경 스트림 1행 (물건 식별자 동반)",
+        "properties": {
+          "case_no": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Case No"
+          },
+          "changed_fields": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "변경 필드",
+            "title": "Changed Fields"
+          },
+          "court_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Court Name"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "item_id": {
+            "title": "Item Id",
+            "type": "string"
+          },
+          "item_no": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Item No"
+          },
+          "location": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Location"
+          },
+          "minimum_bid_price": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "최저매각가격 (원)",
+            "title": "Minimum Bid Price"
+          },
+          "observed_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "관측 시각",
+            "title": "Observed At"
+          },
+          "remarks": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "비고",
+            "title": "Remarks"
+          },
+          "round_no": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "회차 (유찰횟수+1)",
+            "title": "Round No"
+          },
+          "sale_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "매각기일",
+            "title": "Sale Date"
+          },
+          "sale_date_kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "기일 성격",
+            "title": "Sale Date Kind"
+          },
+          "sido": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sido"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "수집 출처",
+            "title": "Source"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "상태",
+            "title": "Status"
+          },
+          "status_detail": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "상태 상세",
+            "title": "Status Detail"
+          }
+        },
+        "required": [
+          "id",
+          "item_id"
+        ],
+        "title": "AuctionChangeEntry",
+        "type": "object"
+      },
+      "AuctionChangesResponse": {
+        "description": "최근 변경 스트림 응답",
+        "properties": {
+          "changes": {
+            "items": {
+              "$ref": "#/components/schemas/AuctionChangeEntry"
+            },
+            "title": "Changes",
+            "type": "array"
+          },
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "다음 변경 페이지용 불투명 커서. null이면 현재 고정 범위 순회 완료",
+            "title": "Next Cursor"
+          },
+          "next_since": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "다음 증분 조회에 쓸 since (마지막 observed_at)",
+            "title": "Next Since"
+          },
+          "since": {
+            "title": "Since",
+            "type": "string"
+          },
+          "source": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "데이터 출처(저작권법 제37조 표기 의무)",
+            "title": "Source",
+            "type": "object"
+          }
+        },
+        "required": [
+          "since",
+          "changes",
+          "count"
+        ],
+        "title": "AuctionChangesResponse",
+        "type": "object"
+      },
+      "AuctionDetailBody": {
+        "description": "물건 상세 (법원 물건상세 화면 1건)",
+        "properties": {
+          "appraisal_price": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "감정평가액 (원)",
+            "title": "Appraisal Price"
+          },
+          "auction_start_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "경매개시일",
+            "title": "Auction Start At"
+          },
+          "bid_deposit": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "매수신청보증금 (원)",
+            "title": "Bid Deposit"
+          },
+          "bid_method": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "입찰방법",
+            "title": "Bid Method"
+          },
+          "bidder_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "입찰자 수 (매각결과)",
+            "title": "Bidder Count"
+          },
+          "case_received_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "사건접수일",
+            "title": "Case Received At"
+          },
+          "claim_amount": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "청구금액 (원)",
+            "title": "Claim Amount"
+          },
+          "court_dept": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "담당 경매계",
+            "title": "Court Dept"
+          },
+          "dividend_deadline": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "배당요구종기",
+            "title": "Dividend Deadline"
+          },
+          "docs": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "description": "문서 3종 존재 여부·뷰어 토큰",
+            "title": "Docs"
+          },
+          "electronic": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "전자입찰 여부",
+            "title": "Electronic"
+          },
+          "failed_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "유찰 횟수",
+            "title": "Failed Count"
+          },
+          "fetched_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "상세 수집 시각",
+            "title": "Fetched At"
+          },
+          "item_kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "물건종류",
+            "title": "Item Kind"
+          },
+          "locations": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "description": "목록별 소재지",
+            "title": "Locations"
+          },
+          "minimum_bid_price": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "최저매각가격 (원)",
+            "title": "Minimum Bid Price"
+          },
+          "remarks": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "물건비고",
+            "title": "Remarks"
+          },
+          "sale_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "매각기일 (YYYY-MM-DD)",
+            "title": "Sale Date"
+          },
+          "sale_place": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "매각 법정",
+            "title": "Sale Place"
+          },
+          "sale_price": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "낙찰가 (원)",
+            "title": "Sale Price"
+          },
+          "sale_result": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "매각결과",
+            "title": "Sale Result"
+          },
+          "sale_result_observations": {
+            "description": "낙찰 결과를 해당 매각기일·원천 캡처일과 묶은 관측 이력",
+            "items": {
+              "$ref": "#/components/schemas/AuctionSaleResultObservation"
+            },
+            "title": "Sale Result Observations",
+            "type": "array"
+          },
+          "sale_time": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "매각 시각",
+            "title": "Sale Time"
+          },
+          "source_availability": {
+            "$ref": "#/components/schemas/AuctionSourceAvailability",
+            "description": "매각결과 화면에서 각 값이 직접 관측됐는지"
+          }
+        },
+        "title": "AuctionDetailBody",
+        "type": "object"
+      },
+      "AuctionHistoryEntry": {
+        "description": "경매 회차·상태 이력 1행",
+        "properties": {
+          "changed_fields": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "변경 필드",
+            "title": "Changed Fields"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "item_id": {
+            "title": "Item Id",
+            "type": "string"
+          },
+          "minimum_bid_price": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "최저매각가격 (원)",
+            "title": "Minimum Bid Price"
+          },
+          "observed_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "관측 시각",
+            "title": "Observed At"
+          },
+          "remarks": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "비고",
+            "title": "Remarks"
+          },
+          "round_no": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "회차 (유찰횟수+1)",
+            "title": "Round No"
+          },
+          "sale_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "매각기일",
+            "title": "Sale Date"
+          },
+          "sale_date_kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "기일 성격",
+            "title": "Sale Date Kind"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "수집 출처",
+            "title": "Source"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "상태",
+            "title": "Status"
+          },
+          "status_detail": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "상태 상세",
+            "title": "Status Detail"
+          }
+        },
+        "required": [
+          "id",
+          "item_id"
+        ],
+        "title": "AuctionHistoryEntry",
+        "type": "object"
+      },
+      "AuctionHistoryResponse": {
+        "description": "경매 이력 응답",
+        "properties": {
+          "case_no": {
+            "title": "Case No",
+            "type": "string"
+          },
+          "court_name": {
+            "title": "Court Name",
+            "type": "string"
+          },
+          "entries": {
+            "items": {
+              "$ref": "#/components/schemas/AuctionHistoryEntry"
+            },
+            "title": "Entries",
+            "type": "array"
+          },
+          "item_id": {
+            "title": "Item Id",
+            "type": "string"
+          },
+          "item_no": {
+            "title": "Item No",
+            "type": "string"
+          },
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "next_page": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "다음 페이지 번호. 마지막 페이지면 null",
+            "title": "Next Page"
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer"
+          },
+          "source": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "데이터 출처(저작권법 제37조 표기 의무)",
+            "title": "Source",
+            "type": "object"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          },
+          "total_pages": {
+            "title": "Total Pages",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "court_name",
+          "case_no",
+          "item_no",
+          "item_id",
+          "entries",
+          "total",
+          "page",
+          "limit",
+          "total_pages"
+        ],
+        "title": "AuctionHistoryResponse",
+        "type": "object"
+      },
+      "AuctionItemFullResponse": {
+        "description": "물건 1건 통합 응답 (목록 스냅샷 + 상세 + 기일내역)",
+        "properties": {
+          "analysis": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AuctionAnalysisResponse"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "투자 점수"
+          },
+          "case_no": {
+            "title": "Case No",
+            "type": "string"
+          },
+          "court_name": {
+            "title": "Court Name",
+            "type": "string"
+          },
+          "detail": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AuctionDetailBody"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "상세. 미수집이면 null"
+          },
+          "item": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AuctionItemResponse"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "목록 스냅샷"
+          },
+          "item_no": {
+            "title": "Item No",
+            "type": "string"
+          },
+          "rounds": {
+            "description": "기일내역 전체 (기일 오름차순)",
+            "items": {
+              "$ref": "#/components/schemas/AuctionRoundEntry"
+            },
+            "title": "Rounds",
+            "type": "array"
+          },
+          "rounds_total": {
+            "default": 0,
+            "description": "기일내역 건수",
+            "title": "Rounds Total",
+            "type": "integer"
+          },
+          "sources": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "description": "층별 수집 시각 (list_collected_at / detail_fetched_at)",
+            "title": "Sources",
+            "type": "object"
+          }
+        },
+        "required": [
+          "court_name",
+          "case_no",
+          "item_no"
+        ],
+        "title": "AuctionItemFullResponse",
+        "type": "object"
+      },
+      "AuctionItemResponse": {
+        "description": "경매 물건 응답",
+        "properties": {
+          "appraisal_price": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "감정가 (원)",
+            "title": "Appraisal Price"
+          },
+          "bid_method": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "입찰방법",
+            "title": "Bid Method"
+          },
+          "bid_ratio": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "최저가율 (%)",
+            "title": "Bid Ratio"
+          },
+          "case_no": {
+            "description": "사건번호",
+            "title": "Case No",
+            "type": "string"
+          },
+          "collected_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "수집일시",
+            "title": "Collected At"
+          },
+          "court_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "담당법원",
+            "title": "Court Name"
+          },
+          "failed_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": 0,
+            "description": "유찰횟수",
+            "title": "Failed Count"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "item_no": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": "1",
+            "description": "물건번호",
+            "title": "Item No"
+          },
+          "last_seen_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "법원 목록 순회에서 이 물건을 마지막으로 본 시각(UTC)",
+            "title": "Last Seen At"
+          },
+          "listing_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "법원 목록 게재 여부. listed=지금도 실려 있음, delisted=목록에서 내려감, null=아직 판정 안 함. status 와 다른 값이다 — status 는 마지막으로 본 진행 상태이고 이 칸은 지금도 법원이 게시하는가이다",
+            "title": "Listing Status"
+          },
+          "location": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "소재지",
+            "title": "Location"
+          },
+          "minimum_bid_price": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "최저매각가격 (원)",
+            "title": "Minimum Bid Price"
+          },
+          "remarks": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "비고",
+            "title": "Remarks"
+          },
+          "result_captured_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Exact source capture time in UTC; null for legacy date-only evidence",
+            "title": "Result Captured At"
+          },
+          "result_captured_on": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Source capture date; does not imply an exact time",
+            "title": "Result Captured On"
+          },
+          "result_ingested_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Result history ingestion time; unchanged captures need not append history",
+            "title": "Result Ingested At"
+          },
+          "result_observed_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Compatibility alias for result_ingested_at, not source capture time",
+            "title": "Result Observed At"
+          },
+          "sale_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "매각기일",
+            "title": "Sale Date"
+          },
+          "sale_date_str": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Effective ISO date, identical to sale_date; raw text is source_sale_date_str",
+            "title": "Sale Date Str"
+          },
+          "sale_price": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "공식 낙찰가 (원)",
+            "title": "Sale Price"
+          },
+          "sale_result": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "공식 매각결과",
+            "title": "Sale Result"
+          },
+          "sido": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "시/도",
+            "title": "Sido"
+          },
+          "sigungu": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "시/군/구",
+            "title": "Sigungu"
+          },
+          "source_sale_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "목록 원본 매각기일",
+            "title": "Source Sale Date"
+          },
+          "source_sale_date_str": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Original listing display date text",
+            "title": "Source Sale Date Str"
+          },
+          "source_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "목록 원본 상태",
+            "title": "Source Status"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": "진행",
+            "description": "상태",
+            "title": "Status"
+          },
+          "usage": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "용도",
+            "title": "Usage"
+          }
+        },
+        "required": [
+          "id",
+          "case_no"
+        ],
+        "title": "AuctionItemResponse",
+        "type": "object"
+      },
+      "AuctionRightsResponse": {
+        "description": "권리분석 응답. 분석 전이면 status='pending'.",
+        "properties": {
+          "analyzed_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "분석 시각",
+            "title": "Analyzed At"
+          },
+          "case_no": {
+            "title": "Case No",
+            "type": "string"
+          },
+          "confidence": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "신뢰도 0~1",
+            "title": "Confidence"
+          },
+          "court_name": {
+            "title": "Court Name",
+            "type": "string"
+          },
+          "data_source": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "데이터 출처(저작권법 제37조 표기 의무)",
+            "title": "Data Source",
+            "type": "object"
+          },
+          "input_availability": {
+            "additionalProperties": {
+              "enum": [
+                "observed",
+                "unknown"
+              ],
+              "type": "string"
+            },
+            "description": "법률 입력별 직접 관측 여부",
+            "propertyNames": {
+              "enum": [
+                "tenants",
+                "base_right",
+                "dividend_request",
+                "assumed_rights"
+              ]
+            },
+            "title": "Input Availability",
+            "type": "object"
+          },
+          "item_no": {
+            "title": "Item No",
+            "type": "string"
+          },
+          "notice": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "미관측 입력과 비결론성 안내",
+            "title": "Notice"
+          },
+          "rights_analysis": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "description": "권리분석 본문",
+            "title": "Rights Analysis"
+          },
+          "risk_level": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "safe/caution/warning/danger",
+            "title": "Risk Level"
+          },
+          "risk_score": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "위험도 점수 (0-100)",
+            "title": "Risk Score"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "분석 근거 출처",
+            "title": "Source"
+          },
+          "status": {
+            "description": "ready=저장된 분석 있음, pending=저장된 분석 없음",
+            "enum": [
+              "ready",
+              "pending"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "court_name",
+          "case_no",
+          "item_no",
+          "status"
+        ],
+        "title": "AuctionRightsResponse",
+        "type": "object"
+      },
+      "AuctionRoundEntry": {
+        "description": "기일내역 1행 = 회차 1개 (법원 기록 정본)",
+        "properties": {
+          "fetched_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "수집 시각",
+            "title": "Fetched At"
+          },
+          "minimum_bid_price": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "해당 회차 최저매각가격 (원)",
+            "title": "Minimum Bid Price"
+          },
+          "round_date": {
+            "description": "기일 (YYYY-MM-DD)",
+            "title": "Round Date",
+            "type": "string"
+          },
+          "round_kind": {
+            "description": "기일종류 (매각기일/매각결정기일 등)",
+            "title": "Round Kind",
+            "type": "string"
+          },
+          "round_no": {
+            "description": "회차 순번",
+            "title": "Round No",
+            "type": "integer"
+          },
+          "round_place": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "기일장소",
+            "title": "Round Place"
+          },
+          "round_result": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "기일결과 (유찰/매각/변경 등)",
+            "title": "Round Result"
+          },
+          "round_time": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "기일 시각",
+            "title": "Round Time"
+          },
+          "source": {
+            "default": "detail",
+            "description": "수집 출처",
+            "title": "Source",
+            "type": "string"
+          }
+        },
+        "required": [
+          "round_no",
+          "round_date",
+          "round_kind"
+        ],
+        "title": "AuctionRoundEntry",
+        "type": "object"
+      },
+      "AuctionRoundsResponse": {
+        "description": "기일내역 응답 (회차 정본)",
+        "properties": {
+          "case_no": {
+            "title": "Case No",
+            "type": "string"
+          },
+          "court_name": {
+            "title": "Court Name",
+            "type": "string"
+          },
+          "item_no": {
+            "title": "Item No",
+            "type": "string"
+          },
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "next_page": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Page"
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer"
+          },
+          "rounds": {
+            "items": {
+              "$ref": "#/components/schemas/AuctionRoundEntry"
+            },
+            "title": "Rounds",
+            "type": "array"
+          },
+          "source": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "데이터 출처(저작권법 제37조 표기 의무)",
+            "title": "Source",
+            "type": "object"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          },
+          "total_pages": {
+            "title": "Total Pages",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "court_name",
+          "case_no",
+          "item_no",
+          "rounds",
+          "total",
+          "page",
+          "limit",
+          "total_pages"
+        ],
+        "title": "AuctionRoundsResponse",
+        "type": "object"
+      },
+      "AuctionSaleResultObservation": {
+        "description": "Public, immutable fact plus the source date on which it was captured.",
+        "properties": {
+          "bidder_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bidder Count"
+          },
+          "case_no": {
+            "maxLength": 100,
+            "title": "Case No",
+            "type": "string"
+          },
+          "co_listed_cases": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Co Listed Cases",
+            "type": "array"
+          },
+          "court_name": {
+            "maxLength": 100,
+            "title": "Court Name",
+            "type": "string"
+          },
+          "item_no": {
+            "maxLength": 100,
+            "title": "Item No",
+            "type": "string"
+          },
+          "sale_date": {
+            "format": "date",
+            "title": "Sale Date",
+            "type": "string"
+          },
+          "sale_price": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sale Price"
+          },
+          "sale_result": {
+            "maxLength": 100,
+            "title": "Sale Result",
+            "type": "string"
+          },
+          "source_captured_on": {
+            "format": "date",
+            "title": "Source Captured On",
+            "type": "string"
+          },
+          "source_page": {
+            "minimum": 1.0,
+            "title": "Source Page",
+            "type": "integer"
+          },
+          "source_query_court": {
+            "maxLength": 100,
+            "title": "Source Query Court",
+            "type": "string"
+          },
+          "source_url": {
+            "const": "https://www.courtauction.go.kr/pgj/index.on?w2xPath=/pgj/ui/pgj100/PGJ158M00.xml",
+            "title": "Source Url",
+            "type": "string"
+          },
+          "source_view": {
+            "const": "court_sale_results",
+            "title": "Source View",
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_view",
+          "source_url",
+          "source_captured_on",
+          "source_query_court",
+          "source_page",
+          "court_name",
+          "case_no",
+          "item_no",
+          "sale_date",
+          "sale_result"
+        ],
+        "title": "AuctionSaleResultObservation",
+        "type": "object"
+      },
+      "AuctionSearchResponse": {
+        "description": "경매 검색 응답",
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/AuctionItemResponse"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "next_page": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "다음 페이지 번호. 마지막 페이지면 null",
+            "title": "Next Page"
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer"
+          },
+          "source": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "데이터 출처(저작권법 제37조 표기 의무)",
+            "title": "Source",
+            "type": "object"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          },
+          "total_pages": {
+            "title": "Total Pages",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "page",
+          "limit",
+          "total_pages"
+        ],
+        "title": "AuctionSearchResponse",
+        "type": "object"
+      },
+      "AuctionSourceAvailability": {
+        "description": "Allowlisted availability of fields in the official sale-result view.",
+        "properties": {
+          "bidder_count": {
+            "default": "not_observed",
+            "enum": [
+              "observed",
+              "not_observed",
+              "not_present_for_observed_result",
+              "not_present_in_result_view"
+            ],
+            "title": "Bidder Count",
+            "type": "string"
+          },
+          "sale_date": {
+            "default": "not_observed",
+            "enum": [
+              "observed",
+              "not_observed",
+              "not_present_for_observed_result",
+              "not_present_in_result_view"
+            ],
+            "title": "Sale Date",
+            "type": "string"
+          },
+          "sale_price": {
+            "default": "not_observed",
+            "enum": [
+              "observed",
+              "not_observed",
+              "not_present_for_observed_result",
+              "not_present_in_result_view"
+            ],
+            "title": "Sale Price",
+            "type": "string"
+          },
+          "sale_result": {
+            "default": "not_observed",
+            "enum": [
+              "observed",
+              "not_observed",
+              "not_present_for_observed_result",
+              "not_present_in_result_view"
+            ],
+            "title": "Sale Result",
+            "type": "string"
+          }
+        },
+        "title": "AuctionSourceAvailability",
+        "type": "object"
+      },
+      "AuctionStatsResponse": {
+        "description": "경매 통계",
+        "properties": {
+          "active_items": {
+            "title": "Active Items",
+            "type": "integer"
+          },
+          "by_sido": {
+            "additionalProperties": true,
+            "title": "By Sido",
+            "type": "object"
+          },
+          "by_usage": {
+            "additionalProperties": true,
+            "title": "By Usage",
+            "type": "object"
+          },
+          "failed_items": {
+            "title": "Failed Items",
+            "type": "integer"
+          },
+          "last_crawled_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Crawled At"
+          },
+          "sold_items": {
+            "title": "Sold Items",
+            "type": "integer"
+          },
+          "total_items": {
+            "title": "Total Items",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "total_items",
+          "active_items",
+          "failed_items",
+          "sold_items",
+          "by_sido",
+          "by_usage",
+          "last_crawled_at"
+        ],
+        "title": "AuctionStatsResponse",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "RegionalRiskResponse": {
+        "description": "지역별 위험 지수",
+        "properties": {
+          "disclaimer": {
+            "title": "Disclaimer",
+            "type": "string"
+          },
+          "filter": {
+            "title": "Filter",
+            "type": "string"
+          },
+          "queried_at": {
+            "title": "Queried At",
+            "type": "string"
+          },
+          "regions": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Regions",
+            "type": "array"
+          },
+          "total_regions": {
+            "title": "Total Regions",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "queried_at",
+          "filter",
+          "total_regions",
+          "regions",
+          "disclaimer"
+        ],
+        "title": "RegionalRiskResponse",
+        "type": "object"
+      },
+      "RiskHeatmapResponse": {
+        "description": "종합 리스크 히트맵",
+        "properties": {
+          "disclaimer": {
+            "title": "Disclaimer",
+            "type": "string"
+          },
+          "filter": {
+            "title": "Filter",
+            "type": "string"
+          },
+          "national_stats": {
+            "additionalProperties": true,
+            "title": "National Stats",
+            "type": "object"
+          },
+          "queried_at": {
+            "title": "Queried At",
+            "type": "string"
+          },
+          "regions": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Regions",
+            "type": "array"
+          },
+          "total_regions": {
+            "title": "Total Regions",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "queried_at",
+          "filter",
+          "total_regions",
+          "regions",
+          "national_stats",
+          "disclaimer"
+        ],
+        "title": "RiskHeatmapResponse",
+        "type": "object"
+      },
+      "SnapshotEntry": {
+        "description": "날짜 1일치 스냅샷",
+        "properties": {
+          "date": {
+            "title": "Date",
+            "type": "string"
+          },
+          "files": {
+            "items": {
+              "$ref": "#/components/schemas/SnapshotFile"
+            },
+            "title": "Files",
+            "type": "array"
+          },
+          "total_bytes": {
+            "title": "Total Bytes",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "date",
+          "files",
+          "total_bytes"
+        ],
+        "title": "SnapshotEntry",
+        "type": "object"
+      },
+      "SnapshotFile": {
+        "description": "스냅샷 파일 1개",
+        "properties": {
+          "bytes": {
+            "title": "Bytes",
+            "type": "integer"
+          },
+          "download_url": {
+            "description": "이 API 기준 다운로드 경로",
+            "title": "Download Url",
+            "type": "string"
+          },
+          "filename": {
+            "title": "Filename",
+            "type": "string"
+          },
+          "sido": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "시/도. manifest 는 null",
+            "title": "Sido"
+          }
+        },
+        "required": [
+          "filename",
+          "bytes",
+          "download_url"
+        ],
+        "title": "SnapshotFile",
+        "type": "object"
+      },
+      "SnapshotListResponse": {
+        "description": "스냅샷 목록 응답",
+        "properties": {
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "latest": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "가장 최근 스냅샷 날짜",
+            "title": "Latest"
+          },
+          "snapshots": {
+            "items": {
+              "$ref": "#/components/schemas/SnapshotEntry"
+            },
+            "title": "Snapshots",
+            "type": "array"
+          },
+          "source": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "데이터 출처(저작권법 제37조 표기 의무)",
+            "title": "Source",
+            "type": "object"
+          }
+        },
+        "required": [
+          "snapshots",
+          "count"
+        ],
+        "title": "SnapshotListResponse",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "scheme": "bearer",
+        "type": "http"
+      },
+      "YapApiKey": {
+        "in": "header",
+        "name": "X-YAP-Key",
+        "type": "apiKey"
+      }
+    }
+  },
+  "info": {
+    "title": "ntriq Public Data API",
+    "version": "1.0.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/lawink/api/v1/auction/case/{case_no}": {
+      "get": {
+        "description": "사건번호로 경매 상세 조회\n\n사건번호는 법원마다 독립 채번이므로 `court`를 함께 주면 한 법원으로 좁혀진다.\n한 사건에 물건이 여러 개일 수 있어 `items`(물건번호 오름차순)로 전부 돌려주며,\n기존 응답 호환을 위해 첫 물건을 `item`에도 그대로 둔다.",
+        "operationId": "get_auction_by_case_no_lawink_api_v1_auction_case__case_no__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_no",
+            "required": true,
+            "schema": {
+              "title": "Case No",
+              "type": "string"
+            }
+          },
+          {
+            "description": "담당법원 (사건번호는 법원마다 독립 채번이라 전국 조회 시 필요)",
+            "in": "query",
+            "name": "court",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "담당법원 (사건번호는 법원마다 독립 채번이라 전국 조회 시 필요)",
+              "title": "Court"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "요청 파라미터 오류"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "대상 없음"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "일시적 조회 장애"
+          }
+        },
+        "summary": "Get Auction By Case No",
+        "tags": [
+          "lawink-auction"
+        ]
+      }
+    },
+    "/lawink/api/v1/auction/changes": {
+      "get": {
+        "description": "최근 변경 스트림 (증분 수집용)\n\n최초 호출은 `since`를 보내고, 이후에는 `next_cursor`를 `cursor`로 보낸다.\n커서는 동일 시각에 여러 행이 있어도 `(observed_at, id)` 다음 행부터 이어 받고,\n최초 호출 때 고정한 상한까지만 순회한다. `next_since`는 기존 고객 호환 필드다.",
+        "operationId": "get_auction_changes_lawink_api_v1_auction_changes_get",
+        "parameters": [
+          {
+            "description": "최초 조회 하한 (ISO 8601). cursor가 없으면 필수",
+            "in": "query",
+            "name": "since",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "최초 조회 하한 (ISO 8601). cursor가 없으면 필수",
+              "title": "Since"
+            }
+          },
+          {
+            "description": "시/도 필터",
+            "in": "query",
+            "name": "sido",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "시/도 필터",
+              "title": "Sido"
+            }
+          },
+          {
+            "description": "최대 건수",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 100,
+              "description": "최대 건수",
+              "maximum": 1000,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "직전 응답의 next_cursor. 이후 페이지에서는 since를 생략할 수 있음",
+            "in": "query",
+            "name": "cursor",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "직전 응답의 next_cursor. 이후 페이지에서는 since를 생략할 수 있음",
+              "title": "Cursor"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuctionChangesResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "요청 파라미터 오류"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "대상 없음"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "일시적 조회 장애"
+          }
+        },
+        "summary": "Get Auction Changes",
+        "tags": [
+          "lawink-auction"
+        ]
+      }
+    },
+    "/lawink/api/v1/auction/courts": {
+      "get": {
+        "description": "법원 목록 조회\n\n검색 가능한 법원명과 물건 수를 물건 수 내림차순으로 반환합니다.",
+        "operationId": "get_courts_lawink_api_v1_auction_courts_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Get Courts",
+        "tags": [
+          "lawink-auction"
+        ]
+      }
+    },
+    "/lawink/api/v1/auction/health": {
+      "get": {
+        "description": "경매 서비스 헬스체크",
+        "operationId": "auction_health_lawink_api_v1_auction_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "503": {
+            "description": "경매 데이터베이스 조회 실패"
+          }
+        },
+        "summary": "Auction Health",
+        "tags": [
+          "lawink-auction"
+        ]
+      }
+    },
+    "/lawink/api/v1/auction/items/{court}/{case_no}/{item_no}": {
+      "get": {
+        "description": "물건 1건 통합 조회 (3중 식별자)\n\n목록 스냅샷 · 상세 · 기일내역을 한 번에 돌려준다. 상세가 아직 수집되지 않은\n물건은 `detail`이 null 이고 `rounds`가 빈 배열이며, 목록 층만으로도 200 이다.",
+        "operationId": "get_auction_item_lawink_api_v1_auction_items__court___case_no___item_no__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "court",
+            "required": true,
+            "schema": {
+              "title": "Court",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "case_no",
+            "required": true,
+            "schema": {
+              "title": "Case No",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "item_no",
+            "required": true,
+            "schema": {
+              "title": "Item No",
+              "type": "string"
+            }
+          },
+          {
+            "description": "기일내역 포함 여부",
+            "in": "query",
+            "name": "include_rounds",
+            "required": false,
+            "schema": {
+              "default": true,
+              "description": "기일내역 포함 여부",
+              "title": "Include Rounds",
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuctionItemFullResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "요청 파라미터 오류"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "대상 없음"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "일시적 조회 장애"
+          }
+        },
+        "summary": "Get Auction Item",
+        "tags": [
+          "lawink-auction"
+        ]
+      }
+    },
+    "/lawink/api/v1/auction/items/{court}/{case_no}/{item_no}/history": {
+      "get": {
+        "description": "물건 회차·상태 이력 조회 (3중 식별자)\n\n법원 + 사건번호 + 물건번호로 한 물건을 특정해 매각기일 변경·유찰·재매각 회차와\n변경/연기/취하/정지/매각 상태 이력을 최신순으로 돌려준다.",
+        "operationId": "get_auction_item_history_lawink_api_v1_auction_items__court___case_no___item_no__history_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "court",
+            "required": true,
+            "schema": {
+              "title": "Court",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "case_no",
+            "required": true,
+            "schema": {
+              "title": "Case No",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "item_no",
+            "required": true,
+            "schema": {
+              "title": "Item No",
+              "type": "string"
+            }
+          },
+          {
+            "description": "페이지",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "description": "페이지",
+              "minimum": 1,
+              "title": "Page",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "페이지당 항목수",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "description": "페이지당 항목수",
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuctionHistoryResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "요청 파라미터 오류"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "대상 없음"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "일시적 조회 장애"
+          }
+        },
+        "summary": "Get Auction Item History",
+        "tags": [
+          "lawink-auction"
+        ]
+      }
+    },
+    "/lawink/api/v1/auction/items/{court}/{case_no}/{item_no}/rights": {
+      "get": {
+        "description": "권리분석 조회 (말소기준권리·임차인 대항력·위험 신호)\n\n분석이 아직 없으면 404 가 아니라 `status=\"pending\"` 으로 200 을 돌려준다.\n\"물건은 있는데 분석 전\"과 \"물건 자체가 없다\"는 고객 코드에서 다르게 다뤄야 하기 때문이다.",
+        "operationId": "get_auction_item_rights_lawink_api_v1_auction_items__court___case_no___item_no__rights_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "court",
+            "required": true,
+            "schema": {
+              "title": "Court",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "case_no",
+            "required": true,
+            "schema": {
+              "title": "Case No",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "item_no",
+            "required": true,
+            "schema": {
+              "title": "Item No",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuctionRightsResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "요청 파라미터 오류"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "대상 없음"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "일시적 조회 장애"
+          }
+        },
+        "summary": "Get Auction Item Rights",
+        "tags": [
+          "lawink-auction"
+        ]
+      }
+    },
+    "/lawink/api/v1/auction/items/{court}/{case_no}/{item_no}/rounds": {
+      "get": {
+        "description": "기일내역 조회 (회차 정본)\n\n법원 물건상세 화면의 기일내역 표를 그대로 돌려준다. 목록 화면의 \"유찰 3회\"는\n요약이지만 여기에는 언제·얼마에·어떤 결과였는지가 회차별로 남는다.",
+        "operationId": "get_auction_item_rounds_lawink_api_v1_auction_items__court___case_no___item_no__rounds_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "court",
+            "required": true,
+            "schema": {
+              "title": "Court",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "case_no",
+            "required": true,
+            "schema": {
+              "title": "Case No",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "item_no",
+            "required": true,
+            "schema": {
+              "title": "Item No",
+              "type": "string"
+            }
+          },
+          {
+            "description": "페이지",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "description": "페이지",
+              "minimum": 1,
+              "title": "Page",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "페이지당 항목수",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "description": "페이지당 항목수",
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuctionRoundsResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "요청 파라미터 오류"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "대상 없음"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "일시적 조회 장애"
+          }
+        },
+        "summary": "Get Auction Item Rounds",
+        "tags": [
+          "lawink-auction"
+        ]
+      }
+    },
+    "/lawink/api/v1/auction/regional-risk": {
+      "get": {
+        "description": "지역별 전세 위험 지수 분석\n\n경매 데이터 기반 지역별 위험 지수를 산출합니다.",
+        "operationId": "get_regional_risk_lawink_api_v1_auction_regional_risk_get",
+        "parameters": [
+          {
+            "description": "특정 시도 필터",
+            "in": "query",
+            "name": "sido",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "특정 시도 필터",
+              "title": "Sido"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegionalRiskResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Regional Risk",
+        "tags": [
+          "lawink-auction"
+        ]
+      }
+    },
+    "/lawink/api/v1/auction/regions": {
+      "get": {
+        "description": "지역 목록 조회\n\n검색 가능한 시/도 목록을 반환합니다.",
+        "operationId": "get_regions_lawink_api_v1_auction_regions_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Get Regions",
+        "tags": [
+          "lawink-auction"
+        ]
+      }
+    },
+    "/lawink/api/v1/auction/risk-heatmap": {
+      "get": {
+        "description": "종합 지역 리스크 히트맵\n\n경매, 전세, 거래, 가격 4요소를 종합한 리스크 지수를 산출합니다.",
+        "operationId": "get_risk_heatmap_lawink_api_v1_auction_risk_heatmap_get",
+        "parameters": [
+          {
+            "description": "특정 시도 필터",
+            "in": "query",
+            "name": "sido",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "특정 시도 필터",
+              "title": "Sido"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiskHeatmapResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Risk Heatmap",
+        "tags": [
+          "lawink-auction"
+        ]
+      }
+    },
+    "/lawink/api/v1/auction/search": {
+      "get": {
+        "description": "경매 물건 검색\n\n다양한 조건으로 경매 물건을 검색합니다.",
+        "operationId": "search_auctions_lawink_api_v1_auction_search_get",
+        "parameters": [
+          {
+            "description": "시/도",
+            "in": "query",
+            "name": "sido",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "시/도",
+              "title": "Sido"
+            }
+          },
+          {
+            "description": "용도",
+            "in": "query",
+            "name": "usage",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "용도",
+              "title": "Usage"
+            }
+          },
+          {
+            "description": "최소 감정가",
+            "in": "query",
+            "name": "min_price",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "최소 감정가",
+              "title": "Min Price"
+            }
+          },
+          {
+            "description": "최대 감정가",
+            "in": "query",
+            "name": "max_price",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "최대 감정가",
+              "title": "Max Price"
+            }
+          },
+          {
+            "description": "상태",
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "상태",
+              "title": "Status"
+            }
+          },
+          {
+            "description": "법원명(별칭 허용, 예: '부산지방법원 동부지원'도 '부산동부지원'으로 정규화되어 매칭됨)",
+            "in": "query",
+            "name": "court_name",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "법원명(별칭 허용, 예: '부산지방법원 동부지원'도 '부산동부지원'으로 정규화되어 매칭됨)",
+              "title": "Court Name"
+            }
+          },
+          {
+            "description": "검색 키워드",
+            "in": "query",
+            "name": "keyword",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "검색 키워드",
+              "title": "Keyword"
+            }
+          },
+          {
+            "description": "법원 목록에서 내려간 물건까지 포함할지. 기본은 제외다 — status='진행' 으로 남아 있어도 이미 끝난 경매이기 때문이다. 과거 이력을 보려면 true",
+            "in": "query",
+            "name": "include_delisted",
+            "required": false,
+            "schema": {
+              "default": false,
+              "description": "법원 목록에서 내려간 물건까지 포함할지. 기본은 제외다 — status='진행' 으로 남아 있어도 이미 끝난 경매이기 때문이다. 과거 이력을 보려면 true",
+              "title": "Include Delisted",
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "매각기일 (YYYY-MM-DD)",
+            "in": "query",
+            "name": "sale_date",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "매각기일 (YYYY-MM-DD)",
+              "title": "Sale Date"
+            }
+          },
+          {
+            "description": "매각기일 시작",
+            "in": "query",
+            "name": "sale_date_from",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "매각기일 시작",
+              "title": "Sale Date From"
+            }
+          },
+          {
+            "description": "매각기일 종료",
+            "in": "query",
+            "name": "sale_date_to",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "매각기일 종료",
+              "title": "Sale Date To"
+            }
+          },
+          {
+            "description": "정렬 기준",
+            "in": "query",
+            "name": "sort_by",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "price",
+                    "date",
+                    "rate"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "정렬 기준",
+              "title": "Sort By"
+            }
+          },
+          {
+            "description": "정렬 방향",
+            "in": "query",
+            "name": "sort_order",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "asc",
+                    "desc"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "desc",
+              "description": "정렬 방향",
+              "title": "Sort Order"
+            }
+          },
+          {
+            "description": "페이지",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "description": "페이지",
+              "minimum": 1,
+              "title": "Page",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "페이지당 항목수",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "description": "페이지당 항목수",
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuctionSearchResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Search Auctions",
+        "tags": [
+          "lawink-auction"
+        ]
+      }
+    },
+    "/lawink/api/v1/auction/snapshots": {
+      "get": {
+        "description": "일별 스냅샷 목록\n\n전량 적재용 파일 목록이다. 시/도별 `{시도}.jsonl.gz` 와 `manifest.json` 으로 이뤄지며,\n각 줄이 물건 1건(기일내역 포함)이다. `download_url` 로 그대로 받으면 된다.",
+        "operationId": "list_auction_snapshots_lawink_api_v1_auction_snapshots_get",
+        "parameters": [
+          {
+            "description": "특정 날짜만 (YYYY-MM-DD). 생략하면 최근 목록",
+            "in": "query",
+            "name": "date",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "특정 날짜만 (YYYY-MM-DD). 생략하면 최근 목록",
+              "title": "Date"
+            }
+          },
+          {
+            "description": "최근 며칠치를 돌려줄지",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 14,
+              "description": "최근 며칠치를 돌려줄지",
+              "maximum": 90,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SnapshotListResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "요청 파라미터 오류"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "대상 없음"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "일시적 조회 장애"
+          }
+        },
+        "summary": "List Auction Snapshots",
+        "tags": [
+          "lawink-auction"
+        ]
+      }
+    },
+    "/lawink/api/v1/auction/snapshots/{snapshot_date}/{filename}": {
+      "get": {
+        "description": "스냅샷 파일 다운로드\n\n`/snapshots` 가 알려준 `download_url` 을 그대로 호출한다.",
+        "operationId": "download_auction_snapshot_lawink_api_v1_auction_snapshots__snapshot_date___filename__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "snapshot_date",
+            "required": true,
+            "schema": {
+              "title": "Snapshot Date",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "filename",
+            "required": true,
+            "schema": {
+              "title": "Filename",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "요청 파라미터 오류"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "대상 없음"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "일시적 조회 장애"
+          }
+        },
+        "summary": "Download Auction Snapshot",
+        "tags": [
+          "lawink-auction"
+        ]
+      }
+    },
+    "/lawink/api/v1/auction/stats": {
+      "get": {
+        "description": "경매 통계 조회\n\n전체 경매 물건 통계를 반환합니다.",
+        "operationId": "get_auction_stats_lawink_api_v1_auction_stats_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuctionStatsResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Get Auction Stats",
+        "tags": [
+          "lawink-auction"
+        ]
+      }
+    },
+    "/lawink/api/v1/auction/today": {
+      "get": {
+        "description": "오늘의 경매\n\n오늘 매각기일인 경매 물건 목록을 조회합니다.",
+        "operationId": "get_today_auctions_lawink_api_v1_auction_today_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Get Today Auctions",
+        "tags": [
+          "lawink-auction"
+        ]
+      }
+    },
+    "/lawink/api/v1/auction/usages": {
+      "get": {
+        "description": "용도 목록 조회\n\n경매 물건 용도 목록을 반환합니다.",
+        "operationId": "get_usages_lawink_api_v1_auction_usages_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Get Usages",
+        "tags": [
+          "lawink-auction"
+        ]
+      }
+    }
+  },
+  "security": [
+    {
+      "YapApiKey": []
+    },
+    {
+      "BearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "description": "대한민국 법원경매정보(courtauction.go.kr) 공개 데이터를 정제한 조회 API. 출처: 대한민국 법원. 이용 시 출처를 표시해야 한다.",
+      "name": "lawink-auction"
+    }
+  ]
+}
