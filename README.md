@@ -2,11 +2,17 @@
 
 국내 공개 데이터를 정제해 개발자에게 API로 공급합니다. 이 저장소는 **고객이 읽는 문서의 창구**입니다. 명세, 서비스 수준, 체험 안내, 기계 판독용 OpenAPI가 여기 있습니다.
 
-기본 주소는 `https://api.ntriq.co.kr` 입니다. 문의는 ceo@ntriq.co.kr.
+기본 주소는 `https://api.ntriq.co.kr` 입니다. 문의는 support@ntriq.co.kr.
 
 ## 법원경매
 
-전국 법원의 경매 물건, 기일 회차, 물건 상세, 권리분석을 JSON으로 제공합니다.
+전국 법원의 경매 물건, 기일 회차, 물건 상세, 권리분석을 JSON으로 제공합니다. 처음 적재는 매일 만드는 시·도별 스냅샷으로, 그 뒤로는 바뀐 것만 받는 변경분(`/changes?since=`)으로 맞춥니다.
+
+| 먼저 보기 | 주소 |
+|---|---|
+| 지금 실린 물건을 법원·용도·매각기일로 찾아보기 | [ntriq.co.kr/auction](https://ntriq.co.kr/auction?utm_source=github&utm_medium=readme&utm_campaign=auction-api) |
+| 체험 키 받기(고른 법원 한 곳, 5일) | [ntriq.co.kr/products/data](https://ntriq.co.kr/products/data?utm_source=github&utm_medium=readme&utm_campaign=auction-api#auction-sample) |
+| 호출 방법(검색 · 사건 상세 · 변경분) | [ntriq.co.kr/docs](https://ntriq.co.kr/docs?utm_source=github&utm_medium=readme&utm_campaign=auction-api#auction) |
 
 | 문서 | 내용 |
 |---|---|
@@ -27,7 +33,7 @@ curl -H "X-YAP-Key: $NTRIQ_KEY" \
 
 **기본 계약은 내부 이용입니다.** 재배포, 재판매, 제3자 제공, 고객 화면 노출이 모두 포함되지 않습니다. 받으신 데이터를 사내 분석과 내부 시스템에서 쓰시는 범위입니다.
 
-화면에 보여주시거나 재가공해 파시려면 **별도 계약이 필요합니다.** 범위에 따라 조건이 다르니 ceo@ntriq.co.kr 로 문의하십시오.
+화면에 보여주시거나 재가공해 파시려면 **별도 계약이 필요합니다.** 범위에 따라 조건이 다르니 support@ntriq.co.kr 로 문의하십시오.
 
 화면 노출이 허용된 계약에서는 **출처를 표시하셔야 합니다.** 저작권법 제37조(출처 명시 의무)이자, 원천인 대한민국 법원 법원경매정보가 재사용을 허락하는 조건입니다. 응답의 `source.notice` 문구를 사람이 읽을 수 있는 자리에 그대로 노출하십시오. 같은 값이 응답 헤더 `X-Data-Source` 로도 나갑니다. 자세한 내용은 [명세서 7절](docs/auction/spec.md)에 있습니다.
 
