@@ -947,7 +947,7 @@
                 "type": "null"
               }
             ],
-            "description": "입찰방법",
+            "description": "입찰방법(기일입찰·기간입찰). 목록 수집값이 담당계뿐이면 null — 상세 bid_method 를 본다",
             "title": "Bid Method"
           },
           "bid_ratio": {
@@ -978,6 +978,18 @@
             ],
             "description": "수집일시",
             "title": "Collected At"
+          },
+          "court_dept": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "담당 경매계(예: 경매4계)",
+            "title": "Court Dept"
           },
           "court_name": {
             "anyOf": [
@@ -2249,6 +2261,27 @@
             }
           },
           {
+            "description": "법원 필터. 여러 번 보내면 그 법원들의 변경만 받는다(커서도 이 목록에 묶인다)",
+            "in": "query",
+            "name": "court_name",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "법원 필터. 여러 번 보내면 그 법원들의 변경만 받는다(커서도 이 목록에 묶인다)",
+              "title": "Court Name"
+            }
+          },
+          {
             "description": "최대 건수",
             "in": "query",
             "name": "limit",
@@ -2938,7 +2971,7 @@
     },
     "/lawink/api/v1/auction/search": {
       "get": {
-        "description": "경매 물건 검색\n\n다양한 조건으로 경매 물건을 검색합니다.",
+        "description": "경매 물건 검색 — 다양한 조건으로 경매 물건을 검색합니다.",
         "operationId": "search_auctions_lawink_api_v1_auction_search_get",
         "parameters": [
           {
