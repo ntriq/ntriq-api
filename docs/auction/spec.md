@@ -95,7 +95,7 @@ curl -H "X-YAP-Key: $NTRIQ_KEY" \
 | `/items/{court}/{case_no}/{item_no}` | `include_rounds` | `item` `detail` `rounds[]` `rounds_total` `analysis` `sources`, `detail`에는 `source_availability` `sale_result_observations[]` 포함 |
 | `/items/{court}/{case_no}/{item_no}/rounds` | `page` `limit` | `rounds[]` `total` `next_page` |
 | `/items/{court}/{case_no}/{item_no}/history` | `page` `limit` | `entries[]` `total` `next_page` |
-| `/items/{court}/{case_no}/{item_no}/rights` | 없음 | `status` `rights_analysis` `input_availability` `risk_score` `risk_level` `notice` |
+| `/items/{court}/{case_no}/{item_no}/rights` | 없음 | `status` `pending_reason` `rights_analysis` `input_availability` `risk_score` `risk_level` `notice` |
 | `/changes` | 최초 `since`, 이후 `cursor`, `sido` `limit` | `changes[]` `count` `next_since` `next_cursor` |
 | `/case/{case_no}` | `court` | `items[]` `analyses[]` `count` `courts[]` |
 | `/snapshots` | `date` `limit` | `snapshots[]` `latest` |
@@ -210,7 +210,8 @@ curl -H "X-YAP-Key: $NTRIQ_KEY" -G \
       "bid_ratio": 100.0,
       "sale_date": "2026-06-16",
       "sale_date_str": "2026.06.16",
-      "bid_method": "주택도시보증공사(양도전:임차인 김○○)로부터",
+      "bid_method": null,
+      "court_dept": "경매4계",
       "status": "진행",
       "failed_count": 0,
       "remarks": "신건",
@@ -272,7 +273,8 @@ curl -H "X-YAP-Key: $NTRIQ_KEY" \
     "bid_ratio": 80.0,
     "sale_date": "2026-09-03",
     "sale_date_str": "2026.09.03",
-    "bid_method": "경매2계",
+    "bid_method": null,
+    "court_dept": "경매2계",
     "status": "유찰",
     "failed_count": 5,
     "remarks": "임차인 및 임차보증금반환채권승계인 주택도시보증공사의 매수인에 대한 대항력 포기조건 매각",
@@ -394,6 +396,7 @@ curl -H "X-YAP-Key: $NTRIQ_KEY" \
 ```
 
 증분 조회는 응답의 `next_since`를 다음 호출의 `since`에 그대로 넣으면 이어진다.
+`since`는 포함 경계(`observed_at >= since`)라 직전 응답의 마지막 변경 1건이 다음 응답 맨 앞에 다시 온다 — 변경 항목의 `id`로 거르면 된다. 같은 시각 여러 건이 끊기지 않게 하려는 설계다. 페이지를 넘길 때는 `next_cursor`를 쓰면 중복이 없다. `observed_at`·`since`·`next_since`는 UTC이며 `+00:00` 표기를 붙여 내보낸다(시간대 없는 `since`는 UTC로 읽는다).
 
 ```bash
 curl -H "X-YAP-Key: $NTRIQ_KEY" -G \
@@ -454,6 +457,7 @@ curl -H "X-YAP-Key: $NTRIQ_KEY" \
   "case_no": "2025타경102638",
   "item_no": "1",
   "status": "pending",
+  "pending_reason": "no_analysis",
   "rights_analysis": null,
   "input_availability": {
     "tenants": "unknown",
@@ -468,7 +472,11 @@ curl -H "X-YAP-Key: $NTRIQ_KEY" \
 분석이 아직 없는 물건에는 404 대신 `status`가 `pending`인 200을 준다. "물건이 없다"와
 "물건은 있는데 분석 전이다"를 고객 코드가 다르게 다뤄야 하기 때문이다. 분석이 준비되면
 `status`가 `ready`가 되고 `rights_analysis`와 `risk_score`와 `risk_level`이 채워진다.
-`ready`는 저장된 분석이 있다는 뜻일 뿐 법률 입력이 완전하다는 뜻은 아니다. `input_availability`가
+저장된 분석이 있어도 법률 입력 4종을 하나도 관측하지 못했으면 `ready`가 아니라 `pending`이고
+`pending_reason`이 `inputs_unavailable`이다. 이때 `rights_analysis`에는 물건비고에서 뽑은 참고 신호만 있고,
+`risk_score`와 `risk_level`은 `null`이다(입력을 못 본 물건을 `safe`·0점으로 내지 않는다).
+분석 자체가 없을 때의 `pending_reason`은 `no_analysis`, `ready`일 때는 `null`이다.
+`ready`는 입력이 하나 이상 관측됐다는 뜻일 뿐 법률 입력이 완전하다는 뜻은 아니다. `input_availability`가
 `unknown`인 항목의 빈 배열이나 `null`은 해당 권리가 없다는 결론이 아니다. 일부 입력만 관측된
 응답에는 이런 한계를 `notice`로 함께 적는다. 저장소 조회 자체가 실패하면 `pending`으로 숨기지 않고
 공통 에러 봉투의 503 `rights_service_unavailable`을 반환한다.
@@ -526,3 +534,7 @@ curl -H "X-YAP-Key: $NTRIQ_KEY" \
 
 - [OpenAPI](../../openapi/auction.json) 기계 판독용 정본
 - [SLA](sla.md) 서비스 수준과 이용 조건
+
+## 목록·사건 응답의 `bid_method` / `court_dept` (2026-11-10)
+
+검색·사건·물건 목록의 `bid_method`는 입찰방법(기일입찰·기간입찰)이다. 목록 수집원(법원 목록 JSON)은 입찰방법을 주지 않고 담당 경매계(`경매4계`)만 주므로, 그 값은 `court_dept`로 내고 `bid_method`는 null이다. 입찰방법은 상세(`detail.bid_method`)에서 확인한다. 상세의 `court_dept`는 전부터 담당 경매계였다.

@@ -1021,6 +1021,18 @@
             "description": "물건번호",
             "title": "Item No"
           },
+          "last_checked_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "법원 목록에서 마지막으로 확인한 시각(UTC, ISO8601). 얼마나 최신인지는 collected_at(첫 적재 시각)이 아니라 이 칸으로 본다. 한 번도 확인되지 않았으면 null",
+            "title": "Last Checked At"
+          },
           "last_seen_at": {
             "anyOf": [
               {
@@ -1271,7 +1283,7 @@
         "type": "object"
       },
       "AuctionRightsResponse": {
-        "description": "권리분석 응답. 분석 전이면 status='pending'.",
+        "description": "권리분석 응답. 분석 전이거나 법률 입력을 하나도 못 봤으면 status='pending'.",
         "properties": {
           "analyzed_at": {
             "anyOf": [
@@ -1349,6 +1361,22 @@
             "description": "미관측 입력과 비결론성 안내",
             "title": "Notice"
           },
+          "pending_reason": {
+            "anyOf": [
+              {
+                "enum": [
+                  "no_analysis",
+                  "inputs_unavailable"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "status=pending 인 까닭. ready 면 null",
+            "title": "Pending Reason"
+          },
           "rights_analysis": {
             "anyOf": [
               {},
@@ -1368,7 +1396,7 @@
                 "type": "null"
               }
             ],
-            "description": "safe/caution/warning/danger",
+            "description": "safe/caution/warning/danger. pending(inputs_unavailable)이면 null — 'safe'가 아니라 모름이다",
             "title": "Risk Level"
           },
           "risk_score": {
@@ -1380,7 +1408,7 @@
                 "type": "null"
               }
             ],
-            "description": "위험도 점수 (0-100)",
+            "description": "위험도 점수 (0-100). pending(inputs_unavailable)이면 null — 입력을 못 본 물건을 0점으로 내지 않는다",
             "title": "Risk Score"
           },
           "source": {
@@ -1396,7 +1424,7 @@
             "title": "Source"
           },
           "status": {
-            "description": "ready=저장된 분석 있음, pending=저장된 분석 없음",
+            "description": "ready=저장된 분석이 있고 법률 입력 4종 중 하나 이상 관측, pending=저장된 분석이 없거나(pending_reason=no_analysis) 입력을 하나도 관측하지 못함(pending_reason=inputs_unavailable)",
             "enum": [
               "ready",
               "pending"
